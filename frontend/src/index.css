@@ -1,0 +1,122 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+        "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+        "Helvetica Neue", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+        monospace;
+}
+
+
+
+@layer base {
+  :root {
+        /* Light theme - High contrast readable colors */
+        --background: 0 0% 100%;
+        --foreground: 220 13% 18%;
+        --card: 0 0% 100%;
+        --card-foreground: 220 13% 18%;
+        --popover: 0 0% 100%;
+        --popover-foreground: 220 13% 18%;
+        --primary: 221 83% 53%;
+        --primary-foreground: 0 0% 100%;
+        --secondary: 220 14% 96%;
+        --secondary-foreground: 220 9% 46%;
+        --muted: 220 14% 96%;
+        --muted-foreground: 220 9% 46%;
+        --accent: 220 14% 96%;
+        --accent-foreground: 220 9% 46%;
+        --destructive: 0 84% 60%;
+        --destructive-foreground: 0 0% 100%;
+        --border: 220 13% 91%;
+        --input: 220 13% 91%;
+        --ring: 221 83% 53%;
+        --chart-1: 221 83% 53%;
+        --chart-2: 212 95% 68%;
+        --chart-3: 216 92% 60%;
+        --chart-4: 210 98% 78%;
+        --chart-5: 212 97% 87%;
+        --radius: 0.5rem;
+    }
+  .dark {
+        /* Dark theme - High contrast readable colors */
+        --background: 220 13% 9%;
+        --foreground: 0 0% 95%;
+        --card: 220 13% 9%;
+        --card-foreground: 0 0% 95%;
+        --popover: 220 13% 9%;
+        --popover-foreground: 0 0% 95%;
+        --primary: 217 91% 60%;
+        --primary-foreground: 220 13% 9%;
+        --secondary: 220 13% 18%;
+        --secondary-foreground: 0 0% 95%;
+        --muted: 220 13% 18%;
+        --muted-foreground: 220 9% 84%;
+        --accent: 220 13% 18%;
+        --accent-foreground: 0 0% 95%;
+        --destructive: 0 63% 31%;
+        --destructive-foreground: 0 0% 95%;
+        --border: 220 13% 18%;
+        --input: 220 13% 18%;
+        --ring: 217 91% 60%;
+        --chart-1: 217 91% 60%;
+        --chart-2: 173 58% 39%;
+        --chart-3: 197 37% 24%;
+        --chart-4: 43 74% 66%;
+        --chart-5: 27 87% 67%;
+    }
+}
+
+
+
+@layer base {
+  * {
+    @apply border-border;
+    }
+  body {
+    @apply bg-background text-foreground;
+    }
+}
+
+/* Enhanced Aesthetic Styles */
+@layer utilities {
+  /* Gradient text effect */
+  .gradient-text {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary via-blue-400 to-cyan-400;
+  }
+  
+  /* Glow effects */
+  .glow-primary {
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.3), 0 0 40px rgba(59, 130, 246, 0.1);
+  }
+  
+  .glow-accent {
+    box-shadow: 0 0 15px rgba(139, 92, 246, 0.2), 0 0 30px rgba(139, 92, 246, 0.1);
+  }
+  
+  /* Subtle background patterns */
+  .pattern-dots {
+    background-image: radial-gradient(circle, rgba(255,255,255,0.05) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+  
+  /* Smooth card hover effect */
+  .card-aesthetic {
+    @apply transition-all duration-500 ease-out;
+    background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%);
+  }
+  
+  .card-aesthetic:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2), 0 0 30px rgba(59, 130, 246, 0.1);
+  }
+}
