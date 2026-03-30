@@ -12,29 +12,26 @@ export const mockData = {
     }
   },
   
-  experience: [
+  eexperience: [
     {
       id: 1,
       company: "Community Dreams Foundation",
       position: "Product Manager",
       duration: "July 2025 – Present",
       location: "Jersey City, Remote",
-      description: "Leading product strategy for community-focused in-store solutions aligned with CDF's mission of energy independence and sustainable development.",
+      description: "Leading end-to-end product development for CDF's in-store energy solutions vertical, owning roadmap, scope, and release decisions from concept through launch.",
       achievements: [
-        "Developing and driving product strategy for community-focused in-store solutions aligned with CDF's mission of energy independence and sustainable development",
-        "Leading the end-to-end product development lifecycle, from concept, design, and requirements gathering to launch",
-        "Ensuring high-quality delivery across teams through effective cross-functional collaboration and strategic planning",
-        "Conducting comprehensive market research to identify user needs, industry trends, and competitive positioning",
-        "Guiding product direction and innovation through data-driven insights and strategic market analysis",
-        "Managing product roadmaps and strategic initiatives for sustainable community solutions and energy independence"
+        "Reduced requirements churn by 40% by introducing structured discovery sessions with community stakeholders, translating insights directly into sprint-ready specs.",
+        "Cut backlog grooming time by 30% by establishing the team's first product health dashboard tracking KPIs, sprint velocity, and delivery risk across cross-functional teams.",
+        "Leading end-to-end product development for CDF's in-store energy solutions vertical — owning roadmap, scope, and release decisions from concept through launch."
       ],
-      technologies: ["Product Management", "Market Research", "Strategic Planning", "Cross-functional Leadership", "Sustainable Development", "Product Strategy"],
+      technologies: ["Product Management", "Roadmap Planning", "Sprint Planning", "KPI Dashboards", "Cross-functional Leadership", "Stakeholder Management"],
       keyProjects: [
-        "Community-focused In-store Solutions",
-        "Product Strategy Development",
-        "Market Research & Competitive Analysis"
+        "In-store Energy Solutions Vertical",
+        "Product Health Dashboard",
+        "Structured Discovery & Sprint Specs"
       ],
-      impact: "Driving sustainable community solutions and energy independence initiatives through strategic product management"
+      impact: "Reduced requirements churn by 40% and cut backlog grooming time by 30% through structured discovery and KPI tracking."
     },
     {
       id: 2,
@@ -42,47 +39,39 @@ export const mockData = {
       position: "Machine Learning Intern",
       duration: "January 2023 – April 2023",
       location: "Ahmedabad, Gujarat",
-      description: "Designed and deployed advanced NLP solutions and machine learning models, focusing on chatbot development and medical entity recognition systems.",
+      description: "Designed and deployed NLP solutions and machine learning models focused on chatbot development and medical entity recognition.",
       achievements: [
-        "Designed and deployed an NLP chatbot using Python and spaCy, automating query responses and improving response efficiency by 30%",
-        "Reduced manual support time significantly through intelligent automation and natural language processing capabilities",
-        "Built a Medical Entity Recognition (MER) model with TensorFlow and spaCy, achieving 70% higher accuracy in extracting patient and ailment entities from research papers",
-        "Engineered scalable data pipelines using Pandas and NumPy for text preprocessing and model training",
-        "Cut processing time by 20% through optimized data pipeline architecture and efficient algorithms",
-        "Contributed to healthcare technology innovation through advanced machine learning techniques"
+        "Designed and deployed an NLP chatbot using Python and spaCy, automating query responses and improving response efficiency by 30%, reducing manual support time.",
+        "Built a Medical Entity Recognition (MER) model with TensorFlow and spaCy, achieving 70% higher accuracy in extracting patient and ailment entities from research papers.",
+        "Engineered scalable data pipelines using Pandas and NumPy for text preprocessing and model training, cutting processing time by 20% and accelerating iteration cycles across the ML team."
       ],
-      technologies: ["Python", "spaCy", "TensorFlow", "NLP", "Machine Learning", "Pandas", "NumPy", "Data Pipelines", "Healthcare Technology"],
+      technologies: ["Python", "spaCy", "TensorFlow", "NLP", "Pandas", "NumPy", "Data Pipelines", "Machine Learning"],
       keyProjects: [
         "NLP Chatbot Development",
-        "Medical Entity Recognition System",
+        "Medical Entity Recognition (MER) Model",
         "Scalable Data Pipeline Engineering"
       ],
-      impact: "Improved response efficiency by 30%, achieved 70% higher accuracy in medical entity recognition, and reduced processing time by 20%"
+      impact: "Improved response efficiency by 30%, achieved 70% higher accuracy in medical entity recognition, and reduced processing time by 20%."
     },
     {
       id: 3,
       company: "Grownited Pvt. Ltd.",
-      position: "Technical Project Manager",
+      position: "Product Manager",
       duration: "December 2021 – December 2022",
       location: "Ahmedabad, Gujarat",
-      description: "Led full-cycle web and mobile project delivery using Agile methodology while overseeing technical implementation and team coordination.",
+      description: "Owned the roadmap for a 0→1 web and mobile platform, defining scope, writing user stories, and shipping a full product cycle on time and within budget.",
       achievements: [
-        "Led and delivered 6+ full-cycle web and mobile projects under Agile methodology, achieving 95% on-time and within-budget delivery",
-        "Implemented effective sprint planning, stakeholder management, and clearly defined scope, milestones, and sprint cycles",
-        "Integrated Jira and Trello workflows to boost team efficiency by 20-25% through streamlined project management processes",
-        "Oversaw UI integration, API connections, and backend data pipelines with proactive testing and quality assurance",
-        "Reduced post-release defects by 25% through comprehensive testing strategies and quality control measures",
-        "Built Confluence dashboards to track sprint KPIs and team velocity for data-driven project management",
-        "Facilitated retrospectives and technical reviews that improved product stability and increased client satisfaction by 30%"
+        "Owned the roadmap for a 0→1 web and mobile platform, defining scope, writing user stories, and shipping a full product cycle on time and within budget across 3 engineering squads.",
+        "Drove a 30% rise in client satisfaction and 25% reduction in post-release defects by embedding structured feedback loops, acceptance criteria, and QA checkpoints into every sprint.",
+        "Built a live KPI and velocity dashboard in Confluence, surfacing bottlenecks that improved sprint throughput by 20% within two quarters."
       ],
-      technologies: ["Agile", "Scrum", "Jira", "Trello", "Confluence", "Project Management", "Sprint Planning", "KPI Tracking", "Quality Assurance"],
+      technologies: ["Agile", "Scrum", "Jira", "Confluence", "Sprint Planning", "KPI Tracking", "Roadmap Ownership", "QA"],
       keyProjects: [
-        "6+ Full-cycle Web & Mobile Projects",
-        "Agile Workflow Integration",
-        "Confluence Dashboard Development",
-        "Team Efficiency Optimization"
+        "0→1 Web & Mobile Platform",
+        "Live KPI & Velocity Dashboard",
+        "Structured Feedback & QA Integration"
       ],
-      impact: "Achieved 95% on-time delivery, boosted team efficiency by 25%, reduced post-release defects by 25%, and increased client satisfaction by 30%"
+      impact: "Drove 30% rise in client satisfaction, 25% reduction in post-release defects, and 20% improvement in sprint throughput."
     },
     {
       id: 4,
@@ -90,23 +79,19 @@ export const mockData = {
       position: "Software Developer",
       duration: "July 2021 – December 2021",
       location: "Ahmedabad, Gujarat",
-      description: "Contributed to full-stack development across web and mobile platforms, delivering scalable and production-ready features with improved performance.",
+      description: "Built full-stack features across web and mobile platforms, partnering with product and design teams to accelerate delivery and reduce revision cycles.",
       achievements: [
-        "Contributed to full-stack development across web and mobile platforms, delivering scalable and production-ready features",
-        "Improved performance through refactoring and optimized rendering strategies for enhanced user experience",
-        "Built user-focused front-end interfaces using JavaScript, TypeScript, and React with modern development practices",
-        "Developed cross-platform mobile UI components using Flutter and Dart to enhance responsiveness and overall user experience",
-        "Implemented backend logic and API-driven workflows using Python and SQL for robust system architecture",
-        "Performed debugging, UI/UX refinements, and analytics integration to improve reliability and enable data-driven decision-making"
+        "Engineered backend workflows in Python and SQL, eliminating manual processes and cutting data retrieval time by 35%, directly enabling the analytics layer used for PM-level release decisions.",
+        "Built and optimized cross-platform UI components in React, TypeScript, and Flutter, reducing average page load time by 30% and improving user retention by 20% across web and mobile.",
+        "Partnered with product and design teams to align technical implementation with user requirements, cutting revision cycles by 40% and accelerating feature sign-off from 2 weeks to 3 days."
       ],
-      technologies: ["JavaScript", "TypeScript", "React", "Flutter", "Dart", "Python", "SQL", "Full-stack Development", "API Development", "UI/UX"],
+      technologies: ["Python", "SQL", "React", "TypeScript", "Flutter", "Dart", "Full-stack Development", "API Development"],
       keyProjects: [
-        "Full-stack Web & Mobile Development",
-        "Cross-platform Mobile UI Components",
-        "Backend API Development",
-        "Performance Optimization"
+        "Backend Workflow Automation",
+        "Cross-platform UI Components",
+        "Product & Design Collaboration"
       ],
-      impact: "Enhanced user experience and improved application performance through optimized architecture and modern development practices"
+      impact: "Cut data retrieval time by 35%, reduced page load time by 30%, improved user retention by 20%, and accelerated feature sign-off from 2 weeks to 3 days."
     },
     {
       id: 5,
@@ -114,26 +99,21 @@ export const mockData = {
       position: "Web Developer",
       duration: "July 2022 – December 2022",
       location: "Ahmedabad, Gujarat",
-      description: "Developed and deployed responsive web applications with database integration, focusing on user experience optimization and performance improvements.",
+      description: "Rebuilt the company website and integrated a full database solution, significantly improving performance, user engagement, and data management.",
       achievements: [
-        "Developed and deployed a responsive website using the React.js framework, improving page load speed and user engagement by 25%",
-        "Designed and integrated an MSSQL database to manage user registrations, queries, and bookings efficiently",
-        "Cut manual data handling by 40% and ensured faster query resolution through optimized database design and integration",
-        "Optimized UI/UX workflows and front-end validation, reducing form submission errors by 30%",
-        "Improved overall user satisfaction scores by 20% through enhanced user interface design and user experience optimization",
-        "Implemented responsive design principles ensuring cross-device compatibility and consistent user experience"
+        "Rebuilt the company website in React.js, reducing page load time by 40% and driving a 25% lift in user engagement within the first month post-launch.",
+        "Designed and integrated an MSSQL database to manage user registrations, queries, and bookings, cutting manual data handling by 40% and reducing query resolution time by 35%.",
+        "Overhauled UI/UX workflows and front-end validation, reducing form submission errors by 30% and lifting user satisfaction scores by 20% within two quarters."
       ],
-      technologies: ["React.js", "MSSQL", "Responsive Design", "UI/UX Optimization", "Database Design", "Front-end Validation", "Performance Optimization"],
+      technologies: ["React.js", "MSSQL", "JavaScript", "UI/UX", "Responsive Design", "Front-end Validation", "Database Design"],
       keyProjects: [
-        "Huddle and Score Platform Development",
+        "Company Website Rebuild",
         "MSSQL Database Integration",
-        "UI/UX Optimization",
-        "Performance Enhancement"
+        "UI/UX & Validation Overhaul"
       ],
-      impact: "Improved page load speed and user engagement by 25%, reduced manual data handling by 40%, and enhanced user satisfaction by 20%"
+      impact: "Reduced page load time by 40%, cut manual data handling by 40%, reduced form errors by 30%, and improved user satisfaction by 20%."
     }
   ],
-
   projects: [
     {
       id: 1,
