@@ -212,10 +212,11 @@ export const mockData = {
   ],
 
   skills: {
+    aiml: ["Prompt Engineering", "NLP Pipeline Design", "ML Feature Scoping", "LLM Evaluation"],
     languages: ["Python", "C/C++", "HTML", "CSS", "JavaScript", "Dart", "TypeScript", "SQL"],
-    libraries: ["Pandas", "NumPy", "spaCy", "TensorFlow", "Flutter", "Angular", "Langchain", "React"],
+    libraries: ["Pandas", "NumPy", "spaCy", "TensorFlow", "Flutter", "Angular", "React"],
     databases: ["MySQL", "MongoDB", "MSSQL", "SQLite"],
-    tools: ["Git", "GitHub Actions", "Visual Studio", "VS Code", "PyCharm", "Eclipse", "Power BI", "Tableau", "Docker"],
+    tools: ["Git", "GitHub Actions", "VS Code", "Power BI", "Tableau", "Docker"],
     methodologies: ["Agile", "Scrum", "Kanban", "Waterfall", "Six Sigma", "Lean"],
     management: ["Asana", "ClickUp", "Jira", "Trello", "Notion", "Confluence", "Slack", "MS Teams", "Google Workspace", "Sharepoint", "MS Visio", "MS Project", "Microsoft Office Suite"]
   },
