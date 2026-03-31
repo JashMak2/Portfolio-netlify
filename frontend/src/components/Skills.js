@@ -300,7 +300,7 @@ const Skills = ({ skills }) => {
               <Code2 className="w-8 h-8 text-primary" />
             </div>
             <h4 className="text-3xl font-bold text-primary mb-2">
-              {skills.languages.length + skills.libraries.length}+
+              {skills.aiml.length + skills.languages.length + skills.libraries.length}+
             </h4>
             <p className="text-muted-foreground font-medium">Programming Technologies</p>
           </div>
