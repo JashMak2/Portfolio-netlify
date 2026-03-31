@@ -7,8 +7,8 @@ const Header = () => {
 
   const downloadResume = () => {
     const link = document.createElement('a');
-    link.href = 'https://customer-assets.emergentagent.com/job_portfolio-maker-58/artifacts/k4aqcqhc_Jash_Makwana_Resume_TPM_SWE.pdf';
-    link.download = 'Jash_Makwana_Resume_TPM_SWE.pdf';
+    link.href = '/Jash_Makwana_Resume_PM_SWE.pdf';
+    link.download = 'Jash_Makwana_Resume_PM_SWE.pdf';
     link.target = '_blank';
     document.body.appendChild(link);
     link.click();
