@@ -32,6 +32,17 @@ const Skills = ({ skills }) => {
 
   const skillCategories = [
     {
+      id: 'aiml',
+      title: 'AI / ML',
+      icon: <Zap className="w-7 h-7" />,
+      items: skills.aiml,
+      color: 'from-pink-500/20 to-rose-600/20',
+      borderColor: 'border-pink-500/30',
+      iconColor: 'text-pink-500',
+      bgColor: 'bg-pink-500/5',
+      displayLimit: 6
+    },
+    {
       id: 'languages',
       title: 'Programming Languages',
       icon: <Code2 className="w-7 h-7" />,
