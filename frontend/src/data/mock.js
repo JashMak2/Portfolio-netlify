@@ -12,7 +12,7 @@ export const mockData = {
     }
   },
   
-  eexperience: [
+  experience: [
     {
       id: 1,
       company: "Community Dreams Foundation",
