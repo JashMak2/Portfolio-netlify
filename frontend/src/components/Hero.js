@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Github, Linkedin, Mail, MapPin, Code, Zap } from 'lucide-react';
 import { Button } from './ui/button';
+import HeroOrbit3D from './three/HeroOrbit3D';
 
 const Hero = ({ data }) => {
   const [isVisible, setIsVisible] = useState(false);
@@ -139,100 +140,17 @@ const Hero = ({ data }) => {
             isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
           }`}>
             <div className="relative group">
+              {/* Real 3D orbiting tech stack, replaces the old flat CSS orbit */}
+              <HeroOrbit3D />
+
               {/* Animated Ring - smaller on mobile */}
               <div className="absolute inset-0 w-48 h-48 md:w-72 md:h-72 lg:w-96 lg:h-96 rounded-full border-2 border-primary/30 animate-spin-slow" />
               <div className="absolute inset-4 w-40 h-40 md:w-64 md:h-64 lg:w-88 lg:h-88 rounded-full border border-primary/20 animate-ping-slow" />
-              
+
               {/* Profile Circle - smaller on mobile */}
-              <div className="relative w-40 h-40 md:w-64 md:h-64 lg:w-80 lg:h-80 bg-gradient-to-br from-muted via-muted to-muted/80 rounded-full flex items-center justify-center border-4 border-border/50 backdrop-blur-sm group-hover:border-primary/50 transition-all duration-500 group-hover:shadow-2xl group-hover:shadow-primary/20">
+              <div className="relative z-10 w-40 h-40 md:w-64 md:h-64 lg:w-80 lg:h-80 bg-gradient-to-br from-muted via-muted to-muted/80 rounded-full flex items-center justify-center border-4 border-border/50 backdrop-blur-sm group-hover:border-primary/50 transition-all duration-500 group-hover:shadow-2xl group-hover:shadow-primary/20">
                 <div className="text-4xl md:text-6xl lg:text-8xl font-bold text-muted-foreground group-hover:text-primary transition-colors duration-500">
                   {data.name.split(' ').map(n => n[0]).join('')}
-                </div>
-                
-                {/* Tech Stack Icons Floating Around */}
-                <div className="absolute inset-0">
-                  {/* Primary Languages */}
-                  <div className="tech-orbit tech-orbit-1" title="Python">
-                    <div className="tech-orbit-icon w-10 h-10 bg-primary/20 rounded-full flex items-center justify-center backdrop-blur-sm border border-primary/30 hover:scale-125 transition-all duration-300 cursor-pointer shadow-lg">
-                      <span className="text-xs font-bold text-primary">PY</span>
-                    </div>
-                  </div>
-                  <div className="tech-orbit tech-orbit-2" title="JavaScript">
-                    <div className="tech-orbit-icon w-9 h-9 bg-slate-500/20 rounded-full flex items-center justify-center backdrop-blur-sm border border-slate-500/30 hover:scale-125 transition-all duration-300 cursor-pointer shadow-lg">
-                      <span className="text-xs font-bold text-slate-300">JS</span>
-                    </div>
-                  </div>
-                  <div className="tech-orbit tech-orbit-3" title="C/C++">
-                    <div className="tech-orbit-icon w-8 h-8 bg-amber-600/20 rounded-full flex items-center justify-center backdrop-blur-sm border border-amber-600/30 hover:scale-125 transition-all duration-300 cursor-pointer shadow-lg">
-                      <span className="text-xs font-bold text-amber-400">C++</span>
-                    </div>
-                  </div>
-                  <div className="tech-orbit tech-orbit-4" title="HTML">
-                    <div className="tech-orbit-icon w-8 h-8 bg-stone-500/20 rounded-full flex items-center justify-center backdrop-blur-sm border border-stone-500/30 hover:scale-125 transition-all duration-300 cursor-pointer shadow-lg">
-                      <span className="text-xs font-bold text-stone-300">HTML</span>
-                    </div>
-                  </div>
-                  <div className="tech-orbit tech-orbit-5" title="CSS">
-                    <div className="tech-orbit-icon w-9 h-9 bg-neutral-600/20 rounded-full flex items-center justify-center backdrop-blur-sm border border-neutral-600/30 hover:scale-125 transition-all duration-300 cursor-pointer shadow-lg">
-                      <span className="text-xs font-bold text-neutral-300">CSS</span>
-                    </div>
-                  </div>
-                  <div className="tech-orbit tech-orbit-6" title="TypeScript">
-                    <div className="tech-orbit-icon w-8 h-8 bg-primary/25 rounded-full flex items-center justify-center backdrop-blur-sm border border-primary/35 hover:scale-125 transition-all duration-300 cursor-pointer shadow-lg">
-                      <span className="text-xs font-bold text-primary">TS</span>
-                    </div>
-                  </div>
-                  
-                  {/* Libraries & Frameworks */}
-                  <div className="tech-orbit tech-orbit-7" title="TensorFlow">
-                    <div className="tech-orbit-icon w-9 h-9 bg-amber-600/20 rounded-full flex items-center justify-center backdrop-blur-sm border border-amber-600/30 hover:scale-125 transition-all duration-300 cursor-pointer shadow-lg">
-                      <span className="text-xs font-bold text-amber-400">TF</span>
-                    </div>
-                  </div>
-                  <div className="tech-orbit tech-orbit-8" title="Angular">
-                    <div className="tech-orbit-icon w-8 h-8 bg-slate-600/20 rounded-full flex items-center justify-center backdrop-blur-sm border border-slate-600/30 hover:scale-125 transition-all duration-300 cursor-pointer shadow-lg">
-                      <span className="text-xs font-bold text-slate-300">NG</span>
-                    </div>
-                  </div>
-                  <div className="tech-orbit tech-orbit-9" title="React">
-                    <div className="tech-orbit-icon w-9 h-9 bg-stone-600/20 rounded-full flex items-center justify-center backdrop-blur-sm border border-stone-600/30 hover:scale-125 transition-all duration-300 cursor-pointer shadow-lg">
-                      <span className="text-xs font-bold text-stone-300">RC</span>
-                    </div>
-                  </div>
-                  <div className="tech-orbit tech-orbit-10" title="Langchain">
-                    <div className="tech-orbit-icon w-8 h-8 bg-neutral-500/20 rounded-full flex items-center justify-center backdrop-blur-sm border border-neutral-500/30 hover:scale-125 transition-all duration-300 cursor-pointer shadow-lg">
-                      <span className="text-xs font-bold text-neutral-300">LC</span>
-                    </div>
-                  </div>
-                  
-                  {/* Databases */}
-                  <div className="tech-orbit tech-orbit-11" title="MySQL">
-                    <div className="tech-orbit-icon w-9 h-9 bg-amber-500/20 rounded-full flex items-center justify-center backdrop-blur-sm border border-amber-500/30 hover:scale-125 transition-all duration-300 cursor-pointer shadow-lg">
-                      <span className="text-xs font-bold text-amber-400">SQL</span>
-                    </div>
-                  </div>
-                  <div className="tech-orbit tech-orbit-12" title="MongoDB">
-                    <div className="tech-orbit-icon w-8 h-8 bg-stone-500/20 rounded-full flex items-center justify-center backdrop-blur-sm border border-stone-500/30 hover:scale-125 transition-all duration-300 cursor-pointer shadow-lg">
-                      <span className="text-xs font-bold text-stone-300">MDB</span>
-                    </div>
-                  </div>
-                  
-                  {/* Development Tools */}
-                  <div className="tech-orbit tech-orbit-13" title="Docker">
-                    <div className="tech-orbit-icon w-8 h-8 bg-primary/20 rounded-full flex items-center justify-center backdrop-blur-sm border border-primary/30 hover:scale-125 transition-all duration-300 cursor-pointer shadow-lg">
-                      <span className="text-xs font-bold text-primary">DC</span>
-                    </div>
-                  </div>
-                  <div className="tech-orbit tech-orbit-14" title="Jira">
-                    <div className="tech-orbit-icon w-9 h-9 bg-slate-500/20 rounded-full flex items-center justify-center backdrop-blur-sm border border-slate-500/30 hover:scale-125 transition-all duration-300 cursor-pointer shadow-lg">
-                      <span className="text-xs font-bold text-slate-300">JR</span>
-                    </div>
-                  </div>
-                  <div className="tech-orbit tech-orbit-15" title="Trello">
-                    <div className="tech-orbit-icon w-8 h-8 bg-neutral-600/20 rounded-full flex items-center justify-center backdrop-blur-sm border border-neutral-600/30 hover:scale-125 transition-all duration-300 cursor-pointer shadow-lg">
-                      <span className="text-xs font-bold text-neutral-300">TR</span>
-                    </div>
-                  </div>
                 </div>
               </div>
             </div>

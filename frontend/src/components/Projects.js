@@ -3,6 +3,7 @@ import { GitBranch, Calendar, Star } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 import { Badge } from './ui/badge';
 import { Button } from './ui/button';
+import Tilt3D from './Tilt3D';
 
 const Projects = ({ projects }) => {
   const [expandedProject, setExpandedProject] = useState(null);
@@ -78,6 +79,7 @@ const Projects = ({ projects }) => {
               }`}
               data-index={index}
             >
+              <Tilt3D className="h-full" maxTilt={6}>
               <Card className="group relative overflow-hidden transition-all duration-500 hover:shadow-2xl hover:shadow-primary/10 card-hover-effect project-card h-full">
                 {/* Project Image Placeholder */}
                 <div className="relative h-48 bg-gradient-to-br from-muted via-muted/80 to-muted/60 flex items-center justify-center overflow-hidden">
@@ -196,6 +198,7 @@ const Projects = ({ projects }) => {
                   </CardContent>
                 )}
               </Card>
+              </Tilt3D>
             </div>
           ))}
         </div>

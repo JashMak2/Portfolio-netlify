@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Code2, Database, Wrench, Laptop, Zap, TrendingUp, Award, Lightbulb } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 import { Badge } from './ui/badge';
+import Tilt3D from './Tilt3D';
 
 const Skills = ({ skills }) => {
   const [hoveredCategory, setHoveredCategory] = useState(null);
@@ -31,17 +32,6 @@ const Skills = ({ skills }) => {
   }, []);
 
   const skillCategories = [
-    {
-      id: 'aiml',
-      title: 'AI / ML',
-      icon: <Zap className="w-7 h-7" />,
-      items: skills.aiml,
-      color: 'from-pink-500/20 to-rose-600/20',
-      borderColor: 'border-pink-500/30',
-      iconColor: 'text-pink-500',
-      bgColor: 'bg-pink-500/5',
-      displayLimit: 6
-    },
     {
       id: 'languages',
       title: 'Programming Languages',
@@ -147,11 +137,11 @@ const Skills = ({ skills }) => {
           </p>
         </div>
 
-        {/* Skills Categories Grid - Row 1: AI/ML, Languages, Libraries */}
+        {/* Skills Categories Grid - Row 1: Languages, Libraries, Databases */}
         <div className="grid md:grid-cols-3 gap-8 mb-8">
           {skillCategories.slice(0, 3).map((category, index) => (
-            <Card 
-              key={index} 
+            <Tilt3D key={index} maxTilt={7}>
+            <Card
               className={`skill-card group relative overflow-hidden transition-all duration-500 hover:shadow-2xl card-hover-effect cursor-pointer ${
                 visibleCards.includes(index) 
                   ? 'opacity-100 translate-y-0' 
@@ -198,14 +188,15 @@ const Skills = ({ skills }) => {
                 </div>
               </CardContent>
             </Card>
+            </Tilt3D>
           ))}
         </div>
 
-        {/* Skills Categories Grid - Row 2: Databases, Tools, Methodologies */}
-        <div className="grid md:grid-cols-3 gap-8 mb-8">
+        {/* Skills Categories Grid - Row 2: Tools, Methodologies, Management */}
+        <div className="grid md:grid-cols-3 gap-8 mb-12">
           {skillCategories.slice(3, 6).map((category, index) => (
-            <Card 
-              key={index + 3} 
+            <Tilt3D key={index + 3} maxTilt={7}>
+            <Card
               className={`skill-card group relative overflow-hidden transition-all duration-500 hover:shadow-2xl card-hover-effect cursor-pointer opacity-100 translate-y-0`}
               data-index={index + 3}
               onMouseEnter={() => setHoveredCategory(index + 3)}
@@ -249,48 +240,8 @@ const Skills = ({ skills }) => {
                 </div>
               </CardContent>
             </Card>
+            </Tilt3D>
           ))}
-        </div>
-{/* Skills Categories Grid - Row 3: Management */}
-        <div className="grid md:grid-cols-3 gap-8 mb-12">
-          <div></div>
-          {skillCategories.slice(6, 7).map((category, index) => (
-            <Card
-              key={index + 6}
-              className={`skill-card group relative overflow-hidden transition-all duration-500 hover:shadow-2xl card-hover-effect cursor-pointer opacity-100 translate-y-0`}
-              data-index={index + 6}
-              onMouseEnter={() => setHoveredCategory(index + 6)}
-              onMouseLeave={() => setHoveredCategory(null)}
-            >
-              <div className={`absolute inset-0 bg-gradient-to-br ${category.color} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
-              <div className={`absolute inset-0 bg-gradient-to-r from-transparent via-primary/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 animate-pulse`} />
-              <CardHeader className="pb-4 relative z-10">
-                <div className={`flex items-center gap-3 p-4 rounded-2xl transition-all duration-500 ${category.bgColor} ${category.borderColor} border ${hoveredCategory === index + 6 ? 'scale-105' : ''}`}>
-                  <div className={`${category.iconColor} transition-colors duration-300`}>
-                    {category.icon}
-                  </div>
-                  <CardTitle className="text-lg font-bold group-hover:text-primary transition-colors duration-300">
-                    {category.title}
-                  </CardTitle>
-                </div>
-              </CardHeader>
-              <CardContent className="relative z-10">
-                <div className="flex flex-wrap gap-2 justify-center">
-                  {category.items.map((item, idx) => (
-                    <Badge
-                      key={idx}
-                      variant="secondary"
-                      className={`skill-badge text-xs px-3 py-1 transition-all duration-300 ${category.bgColor} ${category.borderColor} border group-hover:scale-105`}
-                      style={{ animationDelay: `${idx * 0.1}s`, transitionDelay: `${idx * 0.05}s` }}
-                    >
-                      {item}
-                    </Badge>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-          ))}
-          <div></div>
         </div>
 
         {/* Skills Summary Stats */}
@@ -300,7 +251,7 @@ const Skills = ({ skills }) => {
               <Code2 className="w-8 h-8 text-primary" />
             </div>
             <h4 className="text-3xl font-bold text-primary mb-2">
-              {skills.aiml.length + skills.languages.length + skills.libraries.length}+
+              {skills.languages.length + skills.libraries.length}+
             </h4>
             <p className="text-muted-foreground font-medium">Programming Technologies</p>
           </div>
