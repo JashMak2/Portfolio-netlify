@@ -1,85 +1,86 @@
 import React, { useMemo, useRef, useState, useEffect, Suspense } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
+import { CanvasTexture } from 'three';
 
-const PRIMARY = '#3b82f6';
-const ACCENT = '#b98642';
-
-const SHAPES = ['icosahedron', 'octahedron', 'torus', 'box'];
-
-function makeGeometry(shape) {
-  switch (shape) {
-    case 'octahedron':
-      return <octahedronGeometry args={[1, 0]} />;
-    case 'torus':
-      return <torusGeometry args={[0.8, 0.28, 8, 24]} />;
-    case 'box':
-      return <boxGeometry args={[1.2, 1.2, 1.2]} />;
-    default:
-      return <icosahedronGeometry args={[1, 0]} />;
-  }
+// Soft round point sprite (radial gradient) so dots read as glowing points
+// rather than the default hard square Points look.
+function useDotTexture() {
+  return useMemo(() => {
+    const size = 64;
+    const canvas = document.createElement('canvas');
+    canvas.width = size;
+    canvas.height = size;
+    const ctx = canvas.getContext('2d');
+    const grad = ctx.createRadialGradient(size / 2, size / 2, 0, size / 2, size / 2, size / 2);
+    grad.addColorStop(0, 'rgba(255,255,255,1)');
+    grad.addColorStop(0.5, 'rgba(255,255,255,0.55)');
+    grad.addColorStop(1, 'rgba(255,255,255,0)');
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, size, size);
+    const texture = new CanvasTexture(canvas);
+    texture.needsUpdate = true;
+    return texture;
+  }, []);
 }
 
-function Field({ count, reducedMotion }) {
-  const groupRef = useRef(null);
-  const nodes = useMemo(() => {
-    const arr = [];
+// A field of small points the camera flies through as the page scrolls —
+// scroll progress (0..1 across the full document) drives how far the
+// camera has traveled into the field, so dots grow and rush past exactly
+// in sync with scrolling instead of on their own timer.
+function DotField({ count, depth, radius, reducedMotion }) {
+  const texture = useDotTexture();
+  const scrollProgress = useRef(0);
+
+  const positions = useMemo(() => {
+    const arr = new Float32Array(count * 3);
     for (let i = 0; i < count; i++) {
-      const shape = SHAPES[i % SHAPES.length];
-      arr.push({
-        shape,
-        position: [
-          (Math.random() - 0.5) * 26,
-          (Math.random() - 0.5) * 16,
-          (Math.random() - 0.5) * 14 - 6,
-        ],
-        rotSpeed: [
-          (Math.random() - 0.5) * 0.15,
-          (Math.random() - 0.5) * 0.15,
-          (Math.random() - 0.5) * 0.1,
-        ],
-        floatSpeed: 0.2 + Math.random() * 0.4,
-        floatOffset: Math.random() * Math.PI * 2,
-        scale: 0.4 + Math.random() * 0.9,
-        color: i % 3 === 0 ? ACCENT : PRIMARY,
-      });
+      const r = radius * Math.sqrt(Math.random());
+      const angle = Math.random() * Math.PI * 2;
+      arr[i * 3] = Math.cos(angle) * r;
+      arr[i * 3 + 1] = Math.sin(angle) * r * 0.62;
+      arr[i * 3 + 2] = -Math.random() * depth;
     }
     return arr;
-  }, [count]);
+  }, [count, depth, radius]);
 
-  const meshRefs = useRef([]);
+  useEffect(() => {
+    const updateProgress = () => {
+      const max = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+      scrollProgress.current = Math.min(1, window.scrollY / max);
+    };
+    updateProgress();
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    window.addEventListener('resize', updateProgress);
+    return () => {
+      window.removeEventListener('scroll', updateProgress);
+      window.removeEventListener('resize', updateProgress);
+    };
+  }, []);
 
-  useFrame((state, delta) => {
-    if (groupRef.current) {
-      const targetX = state.pointer.y * 0.12;
-      const targetY = state.pointer.x * 0.18;
-      groupRef.current.rotation.x += (targetX - groupRef.current.rotation.x) * 0.03;
-      groupRef.current.rotation.y += (targetY - groupRef.current.rotation.y) * 0.03;
-    }
+  useFrame((state) => {
     if (reducedMotion) return;
-    const t = state.clock.elapsedTime;
-    meshRefs.current.forEach((mesh, i) => {
-      if (!mesh) return;
-      const n = nodes[i];
-      mesh.rotation.x += delta * n.rotSpeed[0];
-      mesh.rotation.y += delta * n.rotSpeed[1];
-      mesh.rotation.z += delta * n.rotSpeed[2];
-      mesh.position.y = n.position[1] + Math.sin(t * n.floatSpeed + n.floatOffset) * 1.2;
-    });
+    // Directly tied to scroll position, no easing lag — the field holds
+    // perfectly still the instant scrolling stops instead of drifting on.
+    const travel = depth * 0.86;
+    state.camera.position.z = 6 - scrollProgress.current * travel;
   });
 
   return (
-    <group ref={groupRef}>
-      {nodes.map((n, i) => (
-        <mesh
-          key={i}
-          ref={(el) => (meshRefs.current[i] = el)}
-          position={n.position}
-          scale={n.scale}
-        >
-          {makeGeometry(n.shape)}
-          <meshBasicMaterial color={n.color} wireframe transparent opacity={0.35} />
-        </mesh>
-      ))}
+    <group>
+      <points>
+        <bufferGeometry>
+          <bufferAttribute attach="attributes-position" count={count} array={positions} itemSize={3} />
+        </bufferGeometry>
+        <pointsMaterial
+          map={texture}
+          size={0.1}
+          sizeAttenuation
+          transparent
+          opacity={0.45}
+          depthWrite={false}
+          color="#ffffff"
+        />
+      </points>
     </group>
   );
 }
@@ -87,14 +88,13 @@ function Field({ count, reducedMotion }) {
 const SceneBackground = () => {
   const [ready, setReady] = useState(false);
   const [reducedMotion, setReducedMotion] = useState(false);
-  const [count, setCount] = useState(18);
+  const [count, setCount] = useState(1600);
 
   useEffect(() => {
     setReady(true);
-    const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
-    setReducedMotion(mq.matches);
+    setReducedMotion(window.matchMedia('(prefers-reduced-motion: reduce)').matches);
     const isMobile = window.innerWidth < 768;
-    setCount(isMobile ? 9 : 18);
+    setCount(isMobile ? 700 : 1600);
   }, []);
 
   if (!ready) return null;
@@ -102,15 +102,16 @@ const SceneBackground = () => {
   return (
     <div
       aria-hidden="true"
-      className="fixed inset-0 z-0 pointer-events-none opacity-70 dark:opacity-60"
+      className="fixed inset-0 z-0 pointer-events-none"
+      style={{ transform: 'translateZ(0)', willChange: 'transform', isolation: 'isolate' }}
     >
       <Suspense fallback={null}>
         <Canvas
-          dpr={[1, 1.5]}
-          gl={{ antialias: true, alpha: true }}
-          camera={{ position: [0, 0, 10], fov: 50 }}
+          dpr={[1, 1.25]}
+          gl={{ antialias: false, alpha: true, powerPreference: 'low-power' }}
+          camera={{ position: [0, 0, 6], fov: 60 }}
         >
-          <Field count={count} reducedMotion={reducedMotion} />
+          <DotField count={count} depth={70} radius={9} reducedMotion={reducedMotion} />
         </Canvas>
       </Suspense>
     </div>

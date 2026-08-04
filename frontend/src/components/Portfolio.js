@@ -17,9 +17,11 @@ const Portfolio = () => {
       <Header />
       <main className="relative">
         <Hero data={mockData.personal} />
-        <ScrollReveal3D>
-          <Experience experiences={mockData.experience} />
-        </ScrollReveal3D>
+        <div className="relative z-10">
+          <ScrollReveal3D>
+            <Experience experiences={mockData.experience} />
+          </ScrollReveal3D>
+        </div>
         <ScrollReveal3D>
           <Projects projects={mockData.projects} />
         </ScrollReveal3D>

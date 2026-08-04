@@ -1,22 +1,30 @@
 import React, { useEffect, useState } from 'react';
-import { Github, Linkedin, Mail, MapPin, Code, Zap } from 'lucide-react';
+import { Github, Linkedin, Mail, MapPin } from 'lucide-react';
 import { Button } from './ui/button';
-import HeroOrbit3D from './three/HeroOrbit3D';
+import { useTerminalSequence } from '../hooks/use-terminal-sequence';
+
+const SKILLS_PREVIEW = ['python/', 'react/', 'tensorflow/', 'product-mgmt/', 'sql/', 'flutter/'];
+const COMMANDS = ['whoami', 'cat role.txt', 'ls ./skills', 'echo $LOCATION', './contact.sh'];
+
+const Prompt = () => (
+  <>
+    <span className="text-primary">visitor@portfolio</span>{' '}
+    <span className="text-[hsl(var(--term-path))]">~</span> %{' '}
+  </>
+);
 
 const Hero = ({ data }) => {
   const [isVisible, setIsVisible] = useState(false);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [reducedMotion, setReducedMotion] = useState(false);
 
   useEffect(() => {
     setIsVisible(true);
-    
-    const handleMouseMove = (e) => {
-      setMousePosition({ x: e.clientX, y: e.clientY });
-    };
-    
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
+    setReducedMotion(window.matchMedia('(prefers-reduced-motion: reduce)').matches);
   }, []);
+
+  const { stepIndex, typedCurrent, revealedCount, isTypingStep, isDone } = useTerminalSequence(COMMANDS, {
+    reducedMotion,
+  });
 
   const scrollToSection = (sectionId) => {
     const element = document.getElementById(sectionId);
@@ -25,138 +33,133 @@ const Hero = ({ data }) => {
     }
   };
 
+  const commandText = (i) => (i < stepIndex || isDone ? COMMANDS[i] : typedCurrent);
+  const showCursorOn = (i) => isTypingStep(i) || (isDone && i === COMMANDS.length - 1);
+  const started = (i) => i <= stepIndex || isDone;
+  const revealed = (i) => i < revealedCount || isDone;
+
   return (
-    <section className="relative pt-20 pb-8 lg:pb-12 px-4 overflow-hidden">
-      {/* Animated Background Grid */}
-      <div className="absolute inset-0 opacity-20">
-        <div className="absolute inset-0" 
-             style={{
-               backgroundImage: `radial-gradient(circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(59, 130, 246, 0.15) 0%, transparent 50%)`
-             }} />
-        <div className="grid-background"></div>
-      </div>
-
-      {/* Floating Elements */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="floating-element floating-element-1">
-          <Code className="w-6 h-6 text-primary/30" />
-        </div>
-        <div className="floating-element floating-element-2">
-          <Zap className="w-4 h-4 text-primary/20" />
-        </div>
-        <div className="floating-element floating-element-3">
-          <div className="w-2 h-2 bg-primary/20 rounded-full" />
-        </div>
-      </div>
-
-      <div className="container mx-auto max-w-7xl relative z-10">
-        <div className="flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-12">
-          {/* Content */}
-          <div className={`flex-1 text-center lg:text-left transition-all duration-1000 ${
+    <section id="hero" className="relative min-h-screen flex items-center pt-24 pb-12 px-4 overflow-hidden">
+      <div className="container mx-auto max-w-4xl relative z-10 w-full">
+        <div
+          className={`transition-all duration-1000 ${
             isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
-          }`}>
-            <div className="space-y-6">
-              <div className="space-y-4">
-                <h1 className="text-4xl md:text-5xl lg:text-7xl xl:text-8xl font-bold leading-tight">
-                  Hi, I'm{' '}
-                  <span className="relative inline-block">
-                    <span className="bg-gradient-to-r from-primary to-amber-600/80 bg-clip-text text-transparent animate-gradient-x">
-                      Jash
+          }`}
+        >
+          <div className="border border-border rounded-lg bg-card/90 backdrop-blur-sm shadow-2xl overflow-hidden">
+            {/* Terminal window bar */}
+            <div className="flex items-center gap-2 px-4 py-2.5 bg-secondary/80 border-b border-border">
+              <span className="w-3 h-3 rounded-full bg-[hsl(var(--term-red))]" />
+              <span className="w-3 h-3 rounded-full bg-[hsl(var(--term-yellow))]" />
+              <span className="w-3 h-3 rounded-full bg-primary" />
+              <span className="ml-3 text-xs text-muted-foreground truncate">jash@portfolio — zsh — 100x32</span>
+            </div>
+
+            {/* Terminal body */}
+            <div className="px-5 py-7 sm:px-8 sm:py-9 md:px-10 md:py-10 text-sm md:text-base leading-relaxed min-h-[420px] sm:min-h-[440px]">
+              {started(0) && (
+                <div>
+                  <Prompt />
+                  {commandText(0)}
+                  {showCursorOn(0) && <span className="term-cursor ml-0.5" />}
+                </div>
+              )}
+              {revealed(0) && (
+                <>
+                  <h1 className="font-display text-2xl md:text-4xl lg:text-5xl font-bold mt-3 mb-2 leading-tight">
+                    {data.name} <span className="text-[hsl(var(--term-amber))]">&lt;/&gt;</span>
+                  </h1>
+                  <p className="text-muted-foreground max-w-2xl">{data.description}</p>
+                </>
+              )}
+
+              {started(1) && (
+                <div className="mt-6">
+                  <Prompt />
+                  {commandText(1)}
+                  {showCursorOn(1) && <span className="term-cursor ml-0.5" />}
+                </div>
+              )}
+              {revealed(1) && <div className="text-foreground mt-1 font-medium">{data.title}</div>}
+
+              {started(2) && (
+                <div className="mt-6">
+                  <Prompt />
+                  {commandText(2)}
+                  {showCursorOn(2) && <span className="term-cursor ml-0.5" />}
+                </div>
+              )}
+              {revealed(2) && (
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-x-6 gap-y-1 mt-1">
+                  {SKILLS_PREVIEW.map((s) => (
+                    <span key={s} className="text-[hsl(var(--term-path))]">
+                      {s}
                     </span>
-                    <div className="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-primary to-amber-600/80 rounded-full transform scale-x-0 animate-scale-x" />
-                  </span>
-                  <br />
-                  <span className="text-muted-foreground">Makwana</span>
-                </h1>
-                
-                <div className="relative">
-                  <h2 className="text-xl md:text-2xl lg:text-3xl xl:text-4xl font-semibold mb-6">
-                    <span className="typing-animation">Product Manager & Software Engineer</span>
-                  </h2>
+                  ))}
                 </div>
-                
-                <p className="text-base md:text-xl lg:text-2xl text-muted-foreground leading-relaxed max-w-3xl">
-                  MS Software Engineering student at Stevens Institute of Technology with expertise in product management, machine learning, and full-stack development. Currently serving as Product Manager at Community Dreams Foundation, driving sustainable community solutions.
-                </p>
-              </div>
-            </div>
+              )}
 
-            {/* Enhanced Location */}
-            <div className="flex items-center justify-center lg:justify-start mb-10 mt-8">
-              <div className="flex items-center bg-muted/50 backdrop-blur-sm rounded-full px-6 py-3 border border-border/50">
-                <MapPin className="w-5 h-5 text-primary mr-3" />
-                <span className="text-foreground font-medium">{data.location}</span>
-              </div>
-            </div>
-
-            {/* Enhanced CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-12">
-              <Button 
-                onClick={() => scrollToSection('projects')} 
-                size="lg"
-                className="group relative overflow-hidden bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-4 text-lg font-semibold"
-              >
-                <span className="relative z-10">View My Work</span>
-                <div className="absolute inset-0 bg-gradient-to-r from-primary to-amber-600/80 transform translate-x-full group-hover:translate-x-0 transition-transform duration-300" />
-              </Button>
-              
-              <Button 
-                onClick={() => scrollToSection('contact')} 
-                variant="outline" 
-                size="lg"
-                className="group border-2 border-primary/20 hover:border-primary hover:bg-primary/5 px-8 py-4 text-lg font-semibold backdrop-blur-sm"
-              >
-                <span className="group-hover:text-primary transition-colors">Get In Touch</span>
-              </Button>
-            </div>
-
-            {/* Enhanced Social Links */}
-            <div className="flex justify-center lg:justify-start space-x-4">
-              {[
-                { icon: Github, href: data.social.github, label: 'GitHub' },
-                { icon: Linkedin, href: data.social.linkedin, label: 'LinkedIn' },
-                { icon: Mail, href: `mailto:${data.email}`, label: 'Email' }
-              ].map(({ icon: Icon, href, label }, index) => (
-                <Button 
-                  key={label}
-                  variant="ghost" 
-                  size="lg"
-                  className="group relative overflow-hidden bg-muted/30 hover:bg-muted/60 backdrop-blur-sm border border-border/30 hover:border-primary/50 transition-all duration-300"
-                  asChild
-                  style={{ animationDelay: `${index * 0.1}s` }}
-                >
-                  <a href={href} target={href.startsWith('mailto:') ? '_self' : '_blank'} rel="noopener noreferrer">
-                    <Icon className="w-6 h-6 group-hover:scale-110 transition-transform" />
-                    <span className="sr-only">{label}</span>
-                    <div className="absolute inset-0 bg-primary/10 transform scale-0 group-hover:scale-100 transition-transform duration-300 rounded-lg" />
-                  </a>
-                </Button>
-              ))}
-            </div>
-          </div>
-
-          {/* Enhanced Profile Section */}
-          <div className={`flex-shrink-0 transition-all duration-1000 delay-300 ${
-            isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
-          }`}>
-            <div className="relative group">
-              {/* Real 3D orbiting tech stack, replaces the old flat CSS orbit */}
-              <HeroOrbit3D />
-
-              {/* Animated Ring - smaller on mobile */}
-              <div className="absolute inset-0 w-48 h-48 md:w-72 md:h-72 lg:w-96 lg:h-96 rounded-full border-2 border-primary/30 animate-spin-slow" />
-              <div className="absolute inset-4 w-40 h-40 md:w-64 md:h-64 lg:w-88 lg:h-88 rounded-full border border-primary/20 animate-ping-slow" />
-
-              {/* Profile Circle - smaller on mobile */}
-              <div className="relative z-10 w-40 h-40 md:w-64 md:h-64 lg:w-80 lg:h-80 bg-gradient-to-br from-muted via-muted to-muted/80 rounded-full flex items-center justify-center border-4 border-border/50 backdrop-blur-sm group-hover:border-primary/50 transition-all duration-500 group-hover:shadow-2xl group-hover:shadow-primary/20">
-                <div className="text-4xl md:text-6xl lg:text-8xl font-bold text-muted-foreground group-hover:text-primary transition-colors duration-500">
-                  {data.name.split(' ').map(n => n[0]).join('')}
+              {started(3) && (
+                <div className="mt-6">
+                  <Prompt />
+                  {commandText(3)}
+                  {showCursorOn(3) && <span className="term-cursor ml-0.5" />}
                 </div>
-              </div>
+              )}
+              {revealed(3) && (
+                <div className="flex items-center gap-2 mt-1 text-muted-foreground">
+                  <MapPin className="w-4 h-4 flex-shrink-0" />
+                  <span>{data.location}</span>
+                </div>
+              )}
+
+              {started(4) && (
+                <div className="mt-6">
+                  <Prompt />
+                  {commandText(4)}
+                  {showCursorOn(4) && <span className="term-cursor ml-0.5" />}
+                </div>
+              )}
+
+              {revealed(4) && (
+                <>
+                  {/* CTA */}
+                  <div className="flex flex-wrap gap-3 mt-8">
+                    <Button
+                      onClick={() => scrollToSection('projects')}
+                      className="rounded-none bg-primary text-primary-foreground hover:bg-primary/90 font-semibold"
+                    >
+                      run ./projects
+                    </Button>
+                    <Button onClick={() => scrollToSection('contact')} variant="outline" className="rounded-none">
+                      cat contact.txt
+                    </Button>
+                  </div>
+
+                  {/* Social links */}
+                  <div className="flex gap-3 mt-6">
+                    {[
+                      { icon: Github, href: data.social.github, label: 'GitHub' },
+                      { icon: Linkedin, href: data.social.linkedin, label: 'LinkedIn' },
+                      { icon: Mail, href: `mailto:${data.email}`, label: 'Email' },
+                    ].map(({ icon: Icon, href, label }) => (
+                      <a
+                        key={label}
+                        href={href}
+                        target={href.startsWith('mailto:') ? '_self' : '_blank'}
+                        rel="noopener noreferrer"
+                        className="w-10 h-10 flex items-center justify-center border border-border text-muted-foreground hover:text-primary hover:border-primary/50 transition-colors"
+                      >
+                        <Icon className="w-4 h-4" />
+                        <span className="sr-only">{label}</span>
+                      </a>
+                    ))}
+                  </div>
+                </>
+              )}
             </div>
           </div>
         </div>
-
       </div>
     </section>
   );

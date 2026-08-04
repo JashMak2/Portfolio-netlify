@@ -1,6 +1,33 @@
-import React, { useEffect, useRef, useState, Suspense } from 'react';
+import React, { useEffect, useMemo, useRef, useState, Suspense } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { Billboard, Text } from '@react-three/drei';
+import { Billboard } from '@react-three/drei';
+import { CanvasTexture } from 'three';
+
+// Drei's <Text> (troika-three-text) generates its SDF font atlas on the
+// GPU at mount time; combined with this scene's second live WebGL canvas
+// it reliably stalled the GPU pipeline into a full context loss on some
+// machines (confirmed: removing <Text> alone eliminated the context loss).
+// A plain canvas-texture label is visually equivalent here and far cheaper.
+function useLabelTexture(label, color) {
+  return useMemo(() => {
+    const canvas = document.createElement('canvas');
+    canvas.width = 256;
+    canvas.height = 128;
+    const ctx = canvas.getContext('2d');
+    let fontSize = 72;
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    do {
+      ctx.font = `600 ${fontSize}px system-ui, -apple-system, sans-serif`;
+      fontSize -= 4;
+    } while (ctx.measureText(label).width > canvas.width - 24 && fontSize > 20);
+    ctx.fillStyle = color;
+    ctx.fillText(label, canvas.width / 2, canvas.height / 2 + 2);
+    const texture = new CanvasTexture(canvas);
+    texture.needsUpdate = true;
+    return texture;
+  }, [label, color]);
+}
 
 const COLORS = {
   primary: '#3b82f6',
@@ -60,6 +87,7 @@ const RINGS = [
 ];
 
 function OrbitNode({ radius, angleOffset, color, label }) {
+  const texture = useLabelTexture(label, color);
   return (
     <group rotation={[0, angleOffset, 0]}>
       <group position={[radius, 0, 0]}>
@@ -72,15 +100,10 @@ function OrbitNode({ radius, angleOffset, color, label }) {
             <ringGeometry args={[0.32, 0.36, 32]} />
             <meshBasicMaterial color={color} transparent opacity={0.75} />
           </mesh>
-          <Text
-            fontSize={0.15}
-            color={color}
-            anchorX="center"
-            anchorY="middle"
-            position={[0, 0, 0.01]}
-          >
-            {label}
-          </Text>
+          <mesh position={[0, 0, 0.01]}>
+            <planeGeometry args={[0.56, 0.28]} />
+            <meshBasicMaterial map={texture} transparent depthWrite={false} />
+          </mesh>
         </Billboard>
       </group>
     </group>
@@ -147,8 +170,8 @@ const HeroOrbit3D = () => {
     <div className="absolute -inset-16 md:-inset-24 lg:-inset-28 pointer-events-none z-0">
       <Suspense fallback={null}>
         <Canvas
-          dpr={[1, 1.5]}
-          gl={{ antialias: true, alpha: true }}
+          dpr={[1, 1.25]}
+          gl={{ antialias: false, alpha: true, powerPreference: 'low-power' }}
           camera={{ position: [0, 0, 9], fov: 45 }}
         >
           <Scene paused={paused} />
