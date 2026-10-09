@@ -26,6 +26,7 @@ const Skills = ({ skills }) => {
   }, []);
 
   const skillCategories = [
+    { id: 'ai_ml', title: 'ai_ml', items: skills.ai_ml },
     { id: 'languages', title: 'languages', items: skills.languages },
     { id: 'libraries', title: 'libraries', items: skills.libraries },
     { id: 'databases', title: 'databases', items: skills.databases },
@@ -86,7 +87,7 @@ const Skills = ({ skills }) => {
         {/* Summary stats */}
         <div className="grid md:grid-cols-3 gap-5 mb-12">
           <div className="border border-border p-6">
-            <div className="text-3xl font-bold text-primary">{skills.languages.length + skills.libraries.length}+</div>
+            <div className="text-3xl font-bold text-primary">{skills.ai_ml.length + skills.languages.length + skills.libraries.length}+</div>
             <p className="text-muted-foreground text-sm mt-1">Programming technologies</p>
           </div>
           <div className="border border-border p-6">

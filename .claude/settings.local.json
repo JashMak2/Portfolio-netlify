@@ -1,0 +1,26 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node -e \"require\\('playwright'\\)\")",
+      "Bash(npx --yes playwright --version)",
+      "Bash(command -v npx)",
+      "Bash(command -v yarn)",
+      "Bash(command -v npm)",
+      "Bash(npx --yes playwright install chromium)",
+      "Read(//tmp/**)",
+      "Bash(node /private/tmp/claude-501/-Users-comfyzombie-Documents-Portfolio-Portfolio-main/64d0cff4-bc4e-4c1c-a84d-120350d17750/scratchpad/screenshot.js)",
+      "Bash(npm init *)",
+      "Bash(npm install *)",
+      "Bash(grep -n '```\\\\|^#\\\\|git commit\\\\|git push\\\\|Co-Authored-By' data/mock.js)",
+      "Bash(node /private/tmp/claude-501/-Users-comfyzombie-Documents-Portfolio-Portfolio-main/64d0cff4-bc4e-4c1c-a84d-120350d17750/scratchpad/qa.js)",
+      "Bash(node /private/tmp/claude-501/-Users-comfyzombie-Documents-Portfolio-Portfolio-main/64d0cff4-bc4e-4c1c-a84d-120350d17750/scratchpad/reveal.js)",
+      "Bash(node -e \"console.log\\(require\\('./node_modules/three/package.json'\\).version\\)\")",
+      "Bash(node -e \"console.log\\(require\\('./node_modules/@react-three/fiber/package.json'\\).version\\)\")",
+      "Bash(node -e \"console.log\\(require\\('./node_modules/@react-three/drei/package.json'\\).version\\)\")",
+      "Bash(node -e \"console.log\\(require\\('./node_modules/react/package.json'\\).version\\)\")",
+      "Bash(awk '{print $2}')",
+      "Bash(xargs -r kill)",
+      "Bash(node /private/tmp/claude-501/-Users-comfyzombie-Documents-Portfolio-Portfolio-main/64d0cff4-bc4e-4c1c-a84d-120350d17750/scratchpad/orbit_gl.js)"
+    ]
+  }
+}

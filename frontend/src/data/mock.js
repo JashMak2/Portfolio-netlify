@@ -5,7 +5,7 @@ export const mockData = {
     email: "jashmakwana1003@gmail.com",
     phone: "+1-201-284-1782",
     location: "New York City, New York",
-    description: "MS Software Engineering student at Stevens Institute of Technology with expertise in product management, machine learning, and full-stack development. Currently serving as Product Manager at Community Dreams Foundation, driving sustainable community solutions and energy independence initiatives.",
+    description: "MS Software Engineering student at Stevens Institute of Technology with expertise in full-stack development, product management, and machine learning. Currently serving as a Full Stack Developer at TransferX, building backend solutions and engines for an ed-tech transfer platform.",
     social: {
       github: "https://github.com/jashmakwana",
       linkedin: "https://www.linkedin.com/in/jash-makwana/",
@@ -14,24 +14,44 @@ export const mockData = {
   
   experience: [
     {
+      id: 6,
+      company: "TransferX",
+      position: "Full Stack Developer",
+      duration: "Jul 2026 – Present",
+      location: "Remote",
+      description: "Building the backend for an ed-tech transfer platform, designing course planning and deadline engines.",
+      achievements: [
+        "Built the backend for an ed-tech transfer platform on Supabase and Postgres: 87 tables, 42 migrations, 71 functions, with row-level security across all data tables.",
+        "Designed a course planning engine that maps university transfer requirements to a student's own college catalogue, resolving prerequisite chains into a semester-by-semester plan.",
+        "Built a deadline engine over verified application dates from 19 universities, generating each student's task schedule and recalculating it automatically as their profile changes."
+      ],
+      technologies: ["Supabase", "PostgreSQL", "Full-Stack Development", "Backend Architecture", "Data Modeling"],
+      keyProjects: [
+        "Ed-tech Transfer Platform Backend",
+        "Course Planning Engine",
+        "Deadline Engine"
+      ],
+      impact: "Built a comprehensive backend with 87 tables and complex engines for course planning and deadline management."
+    },
+    {
       id: 1,
       company: "Community Dreams Foundation",
       position: "Product Manager",
-      duration: "July 2025 – Present",
-      location: "Jersey City, Remote",
-      description: "Leading end-to-end product development for CDF's in-store energy solutions vertical, owning roadmap, scope, and release decisions from concept through launch.",
+      duration: "Jul 2025 – Jun 2026",
+      location: "Remote",
+      description: "Owned roadmap and sprint planning for in-store energy solutions, streamlining requirements and delivery.",
       achievements: [
-        "Reduced requirements churn by 40% by introducing structured discovery sessions with community stakeholders, translating insights directly into sprint-ready specs.",
-        "Cut backlog grooming time by 30% by establishing the team's first product health dashboard tracking KPIs, sprint velocity, and delivery risk across cross-functional teams.",
-        "Leading end-to-end product development for CDF's in-store energy solutions vertical — owning roadmap, scope, and release decisions from concept through launch."
+        "Reduced requirements churn by 40% by introducing structured discovery sessions with community stakeholders, turning their feedback into clear, sprint-ready specs so the team stopped reworking scope mid-sprint.",
+        "Cut backlog grooming time by 30% by establishing the team's first product health dashboard, giving cross-functional teams one shared view of KPIs, sprint velocity, and delivery risk for faster prioritization decisions.",
+        "Owned the roadmap, scope, and release decisions for CDF's in-store energy solutions product, balancing stakeholder needs against team capacity to take it from concept to launch."
       ],
-      technologies: ["Product Management", "Roadmap Planning", "Sprint Planning", "KPI Dashboards", "Cross-functional Leadership", "Stakeholder Management"],
+      technologies: ["Product Management", "Roadmap Planning", "Sprint Planning", "KPI Dashboards", "Stakeholder Management", "Agile"],
       keyProjects: [
         "In-store Energy Solutions Vertical",
         "Product Health Dashboard",
-        "Structured Discovery & Sprint Specs"
+        "Structured Discovery Sessions"
       ],
-      impact: "Reduced requirements churn by 40% and cut backlog grooming time by 30% through structured discovery and KPI tracking."
+      impact: "Reduced requirements churn by 40% and backlog grooming time by 30% while owning roadmap from concept to launch."
     },
     {
       id: 2,
@@ -213,10 +233,11 @@ export const mockData = {
   ],
 
   skills: {
+    ai_ml: ["Prompt Engineering", "NLP Pipeline Design", "ML Feature Scoping", "LLM Evaluation"],
     languages: ["Python", "C/C++", "HTML", "CSS", "JavaScript", "Dart", "TypeScript", "SQL"],
-    libraries: ["Pandas", "NumPy", "spaCy", "TensorFlow", "Flutter", "Angular", "Langchain", "React"],
+    libraries: ["Pandas", "NumPy", "spaCy", "TensorFlow", "Flutter", "Angular", "React.js"],
     databases: ["MySQL", "MongoDB", "MSSQL", "SQLite"],
-    tools: ["Git", "GitHub Actions", "Visual Studio", "VS Code", "PyCharm", "Eclipse", "Power BI", "Tableau", "Docker"],
+    tools: ["Git", "GitHub Actions", "VS Code", "Power BI", "Tableau", "Docker"],
     methodologies: ["Agile", "Scrum", "Kanban", "Waterfall", "Six Sigma", "Lean"],
     management: ["Asana", "ClickUp", "Jira", "Trello", "Notion", "Confluence", "Slack", "MS Teams", "Google Workspace", "Sharepoint", "MS Visio", "MS Project", "Microsoft Office Suite"]
   },
