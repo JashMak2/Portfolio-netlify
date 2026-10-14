@@ -21,7 +21,7 @@ const Contact = () => {
   useEffect(() => {
     setIsVisible(true);
     emailjs.init({
-      publicKey: process.env.REACT_APP_EMAILJS_PUBLIC_KEY,
+      publicKey: 'DqKycHPRhqZDZqT_E',
     });
   }, []);
 
@@ -39,11 +39,11 @@ const Contact = () => {
 
     try {
       const result = await emailjs.sendForm(
-        process.env.REACT_APP_EMAILJS_SERVICE_ID,
-        process.env.REACT_APP_EMAILJS_TEMPLATE_ID,
+        'service_1jfigx6',
+        'template_6mz9bi8',
         formRef.current,
         {
-          publicKey: process.env.REACT_APP_EMAILJS_PUBLIC_KEY,
+          publicKey: 'DqKycHPRhqZDZqT_E',
         }
       );
 
